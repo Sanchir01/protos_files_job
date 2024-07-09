@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package main;
+
+option go_package = "sanchir.main.v1;main";
+
+service Auth {
+  rpc Register (RegisterRequest) returns (RegisterResponse) {}
+  rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse) {}
+}
+
+message RegisterRequest{
+  string phone = 1;
+  string password = 2;
+}
+message IsAdminRequest{
+  string user_uuid = 1;
+}
+message  IsAdminResponse{
+  bool is_admin = 1;
+}
+
+message RegisterResponse{
+  string user_uuid = 1;
+}
