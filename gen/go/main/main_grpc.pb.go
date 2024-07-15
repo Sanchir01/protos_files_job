@@ -4,7 +4,7 @@
 // - protoc             v3.20.3
 // source: main/main.proto
 
-package sandjma
+package sandjmav1
 
 import (
 	context "context"
