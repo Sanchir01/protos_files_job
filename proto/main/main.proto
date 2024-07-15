@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package main;
 
-option go_package = "sanchir.main.v1;main";
+option go_package = "sanchir.main.v1;sandjma_auth";
 
 service Auth {
   rpc Register (RegisterRequest) returns (RegisterResponse) {}
