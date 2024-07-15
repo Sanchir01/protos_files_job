@@ -4,7 +4,7 @@
 // - protoc             v3.20.3
 // source: main/main.proto
 
-package sandjma_auth
+package sandjma
 
 import (
 	context "context"
