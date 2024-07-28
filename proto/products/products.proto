@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package products;
+
+option go_package = "github.com/Sanchir01/protos_files_job/pkg;sandjmav1";
+
+service Product {
+  rpc GetAllProducts  (Empty)  returns (GetAllResponse) {}
+}
+message Empty {}
+
+message GetAllResponse{
+  string id = 1;
+  string  name = 2;
+  int32  price = 3;
+  int64 version =4;
+}

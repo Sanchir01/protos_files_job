@@ -2,13 +2,14 @@ syntax = "proto3";
 
 package auth;
 
-option go_package = "sanchir.sandjma.v1;sandjmav1";
+option go_package = "github.com/Sanchir01/protos_files_job/pkg;sandjmav1";
 
 service Auth {
   rpc Register (RegisterRequest) returns (RegisterResponse) {}
   rpc Login (LoginRequest) returns (LoginResponse) {}
   rpc IsAdmin (IsAdminRequest) returns (IsAdminResponse) {}
 }
+
 
 message RegisterRequest{
   string phone = 1;
@@ -28,7 +29,9 @@ message IsAdminResponse{
 
 message RegisterResponse{
   string user_uuid = 1;
+  string tokenTTL = 2;
 }
 message LoginResponse{
   string user_uuid = 1;
+  string tokenTTL = 2;
 }
