@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/Sanchir01/protos_files_job/pkg;sandjmav1";
 
 service Product {
-  rpc GetAllProducts (Empty) returns (GetAllResponse) {}
+  rpc GetAllProducts (Empty) returns (GetAllProductsResponse) {}
 }
 message Empty {}
 
@@ -22,6 +22,6 @@ message Products{
   string description = 9;
 }
 
-message GetAllResponse{
+message GetAllProductsResponse{
   repeated Products products = 1;
 }
