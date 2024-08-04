@@ -10,7 +10,7 @@ service Product {
 }
 message Empty {}
 
-message GetAllResponse{
+message Products{
   string id = 1;
   string  name = 2;
   int32  price = 3;
@@ -22,4 +22,6 @@ message GetAllResponse{
   string description = 9;
 }
 
-
+message GetAllResponse{
+  repeated Products products = 1;
+}
