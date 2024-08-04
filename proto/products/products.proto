@@ -1,11 +1,12 @@
 syntax = "proto3";
 
 package products;
+import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/Sanchir01/protos_files_job/pkg;sandjmav1";
 
 service Product {
-  rpc GetAllProducts  (Empty)  returns (GetAllResponse) {}
+  rpc GetAllProducts (Empty) returns (GetAllResponse) {}
 }
 message Empty {}
 
@@ -14,4 +15,11 @@ message GetAllResponse{
   string  name = 2;
   int32  price = 3;
   int64 version =4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+  repeated string images = 7;
+  string category_id = 8;
+  string description = 9;
 }
+
+
