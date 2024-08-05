@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProductClient interface {
-	GetAllProducts(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetAllResponse, error)
+	GetAllProducts(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetAllProductsResponse, error)
 }
 
 type productClient struct {
@@ -33,8 +33,8 @@ func NewProductClient(cc grpc.ClientConnInterface) ProductClient {
 	return &productClient{cc}
 }
 
-func (c *productClient) GetAllProducts(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetAllResponse, error) {
-	out := new(GetAllResponse)
+func (c *productClient) GetAllProducts(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetAllProductsResponse, error) {
+	out := new(GetAllProductsResponse)
 	err := c.cc.Invoke(ctx, "/products.Product/GetAllProducts", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (c *productClient) GetAllProducts(ctx context.Context, in *Empty, opts ...g
 // All implementations must embed UnimplementedProductServer
 // for forward compatibility
 type ProductServer interface {
-	GetAllProducts(context.Context, *Empty) (*GetAllResponse, error)
+	GetAllProducts(context.Context, *Empty) (*GetAllProductsResponse, error)
 	mustEmbedUnimplementedProductServer()
 }
 
@@ -54,7 +54,7 @@ type ProductServer interface {
 type UnimplementedProductServer struct {
 }
 
-func (UnimplementedProductServer) GetAllProducts(context.Context, *Empty) (*GetAllResponse, error) {
+func (UnimplementedProductServer) GetAllProducts(context.Context, *Empty) (*GetAllProductsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllProducts not implemented")
 }
 func (UnimplementedProductServer) mustEmbedUnimplementedProductServer() {}

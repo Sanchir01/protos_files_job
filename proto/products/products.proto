@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package products;
+
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/Sanchir01/protos_files_job/pkg;sandjmav1";
