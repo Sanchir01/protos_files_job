@@ -22,4 +22,5 @@ message Category {
 }
 message  GetAllCategoryResponse{
   repeated Category category = 1;
+  reserved 2 to 10;
 }
