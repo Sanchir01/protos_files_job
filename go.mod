@@ -1,6 +1,6 @@
 module github.com/Sanchir01/protos_files_job
 
-go 1.22.4
+go 1.22.5
 
 require (
 	google.golang.org/grpc v1.65.0
