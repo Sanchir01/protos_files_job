@@ -4,12 +4,14 @@ package category;
 
 import "google/protobuf/timestamp.proto";
 
+import "google/protobuf/empty.proto";
 option go_package = "github.com/Sanchir01/protos_files_job/pkg;sandjmav1";
 service Categories {
-  rpc GetAllCategory (Empty) returns (GetAllCategoryResponse) {}
+  rpc GetAllCategory (google.protobuf.Empty) returns (GetAllCategoryResponse) {}
   rpc CreateCategory (CreateCategoryRequest) returns (CreateCategoryResponse) {}
+  rpc UpdateCategory (UpdateCategoryRequest) returns (UpdateCategoryResponse){}
+  rpc GetCategoryBySlug (CategoryBySlugRequest) returns (Category){}
 }
-message Empty {}
 
 message Category {
   string id = 1;
@@ -33,4 +35,16 @@ message CreateCategoryRequest {
     string name = 1;
     string  description = 2;
     reserved 3 to 10;
+}
+message UpdateCategoryRequest {
+  string id = 1;
+  string name = 2;
+  int64 version = 3;
+}
+message  UpdateCategoryResponse {
+  string status = 1;
+}
+
+message  CategoryBySlugRequest{
+   string slug = 1;
 }

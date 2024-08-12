@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,16 +20,20 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Categories_GetAllCategory_FullMethodName = "/category.Categories/GetAllCategory"
-	Categories_CreateCategory_FullMethodName = "/category.Categories/CreateCategory"
+	Categories_GetAllCategory_FullMethodName    = "/category.Categories/GetAllCategory"
+	Categories_CreateCategory_FullMethodName    = "/category.Categories/CreateCategory"
+	Categories_UpdateCategory_FullMethodName    = "/category.Categories/UpdateCategory"
+	Categories_GetCategoryBySlug_FullMethodName = "/category.Categories/GetCategoryBySlug"
 )
 
 // CategoriesClient is the client API for Categories service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CategoriesClient interface {
-	GetAllCategory(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetAllCategoryResponse, error)
+	GetAllCategory(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllCategoryResponse, error)
 	CreateCategory(ctx context.Context, in *CreateCategoryRequest, opts ...grpc.CallOption) (*CreateCategoryResponse, error)
+	UpdateCategory(ctx context.Context, in *UpdateCategoryRequest, opts ...grpc.CallOption) (*UpdateCategoryResponse, error)
+	GetCategoryBySlug(ctx context.Context, in *CategoryBySlugRequest, opts ...grpc.CallOption) (*Category, error)
 }
 
 type categoriesClient struct {
@@ -39,7 +44,7 @@ func NewCategoriesClient(cc grpc.ClientConnInterface) CategoriesClient {
 	return &categoriesClient{cc}
 }
 
-func (c *categoriesClient) GetAllCategory(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*GetAllCategoryResponse, error) {
+func (c *categoriesClient) GetAllCategory(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*GetAllCategoryResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetAllCategoryResponse)
 	err := c.cc.Invoke(ctx, Categories_GetAllCategory_FullMethodName, in, out, cOpts...)
@@ -59,12 +64,34 @@ func (c *categoriesClient) CreateCategory(ctx context.Context, in *CreateCategor
 	return out, nil
 }
 
+func (c *categoriesClient) UpdateCategory(ctx context.Context, in *UpdateCategoryRequest, opts ...grpc.CallOption) (*UpdateCategoryResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UpdateCategoryResponse)
+	err := c.cc.Invoke(ctx, Categories_UpdateCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *categoriesClient) GetCategoryBySlug(ctx context.Context, in *CategoryBySlugRequest, opts ...grpc.CallOption) (*Category, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Category)
+	err := c.cc.Invoke(ctx, Categories_GetCategoryBySlug_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CategoriesServer is the server API for Categories service.
 // All implementations must embed UnimplementedCategoriesServer
 // for forward compatibility.
 type CategoriesServer interface {
-	GetAllCategory(context.Context, *Empty) (*GetAllCategoryResponse, error)
+	GetAllCategory(context.Context, *emptypb.Empty) (*GetAllCategoryResponse, error)
 	CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error)
+	UpdateCategory(context.Context, *UpdateCategoryRequest) (*UpdateCategoryResponse, error)
+	GetCategoryBySlug(context.Context, *CategoryBySlugRequest) (*Category, error)
 	mustEmbedUnimplementedCategoriesServer()
 }
 
@@ -75,11 +102,17 @@ type CategoriesServer interface {
 // pointer dereference when methods are called.
 type UnimplementedCategoriesServer struct{}
 
-func (UnimplementedCategoriesServer) GetAllCategory(context.Context, *Empty) (*GetAllCategoryResponse, error) {
+func (UnimplementedCategoriesServer) GetAllCategory(context.Context, *emptypb.Empty) (*GetAllCategoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllCategory not implemented")
 }
 func (UnimplementedCategoriesServer) CreateCategory(context.Context, *CreateCategoryRequest) (*CreateCategoryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCategory not implemented")
+}
+func (UnimplementedCategoriesServer) UpdateCategory(context.Context, *UpdateCategoryRequest) (*UpdateCategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateCategory not implemented")
+}
+func (UnimplementedCategoriesServer) GetCategoryBySlug(context.Context, *CategoryBySlugRequest) (*Category, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCategoryBySlug not implemented")
 }
 func (UnimplementedCategoriesServer) mustEmbedUnimplementedCategoriesServer() {}
 func (UnimplementedCategoriesServer) testEmbeddedByValue()                    {}
@@ -103,7 +136,7 @@ func RegisterCategoriesServer(s grpc.ServiceRegistrar, srv CategoriesServer) {
 }
 
 func _Categories_GetAllCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Empty)
+	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -115,7 +148,7 @@ func _Categories_GetAllCategory_Handler(srv interface{}, ctx context.Context, de
 		FullMethod: Categories_GetAllCategory_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CategoriesServer).GetAllCategory(ctx, req.(*Empty))
+		return srv.(CategoriesServer).GetAllCategory(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -138,6 +171,42 @@ func _Categories_CreateCategory_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Categories_UpdateCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateCategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CategoriesServer).UpdateCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Categories_UpdateCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CategoriesServer).UpdateCategory(ctx, req.(*UpdateCategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Categories_GetCategoryBySlug_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryBySlugRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CategoriesServer).GetCategoryBySlug(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Categories_GetCategoryBySlug_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CategoriesServer).GetCategoryBySlug(ctx, req.(*CategoryBySlugRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Categories_ServiceDesc is the grpc.ServiceDesc for Categories service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -152,6 +221,14 @@ var Categories_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateCategory",
 			Handler:    _Categories_CreateCategory_Handler,
+		},
+		{
+			MethodName: "UpdateCategory",
+			Handler:    _Categories_UpdateCategory_Handler,
+		},
+		{
+			MethodName: "GetCategoryBySlug",
+			Handler:    _Categories_GetCategoryBySlug_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
