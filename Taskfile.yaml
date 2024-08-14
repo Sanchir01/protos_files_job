@@ -7,3 +7,10 @@ tasks:
     desc: "Generate grpc proto file"
     cmds:
      - protoc -I proto proto/*/*.proto --go_out=./pkg/gen/golang --go_opt=paths=source_relative --go-grpc_out=./pkg/gen/golang --go-grpc_opt=paths=source_relative
+
+  nodesjs:
+    aliases:
+      - node
+    desc: "generate grpc proto file in node js"
+    cmds:
+      - protoc -I proto proto/*/*.proto --plugin="protoc-gen-ts=$(which protoc-gen-ts)" --ts_out="./pkg/gen/node" --js_out="import_style=commonjs,binary:./pkg/gen/node" --grpc_out="grpc_js:./pkg/gen/node"

@@ -6,6 +6,8 @@ import "google/protobuf/timestamp.proto";
 
 import "google/protobuf/empty.proto";
 option go_package = "github.com/Sanchir01/protos_files_job/pkg;sandjmav1";
+
+
 service Categories {
   rpc GetAllCategory (google.protobuf.Empty) returns (GetAllCategoryResponse) {}
   rpc CreateCategory (CreateCategoryRequest) returns (CreateCategoryResponse) {}
