@@ -1,0 +1,15 @@
+{
+	"scripts": {
+		"gen-proto": "./node_modules/.bin/proto-loader-gen-types  --oneofs --grpcLib=@grpc/grpc-js --outDir=pkg/gen/node proto/*/*.proto"
+	},
+	"devDependencies": {
+	},
+	"dependencies": {
+		"@grpc/grpc-js": "^1.11.1",
+		"@grpc/proto-loader": "^0.7.13",
+		"protoc-gen-grpc": "^2.0.4",
+		"protoc-gen-js": "^3.21.2",
+		"protoc-gen-ts": "^0.8.7",
+		"ts-proto": "^1.181.1"
+	}
+}
