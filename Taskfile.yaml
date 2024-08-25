@@ -18,7 +18,8 @@ tasks:
       - node:js
     desc: "generate grpc proto file in node js"
     cmds:
-      - npx protoc -I proto proto/*/*.proto  --plugin=./node_modules/.bin/protoc-gen-js  --js_proto_out=./
+      - npx protoc -I proto proto/**/*.proto --js_out=import_style=commonjs,binary:./pkg/gen/node/js
+
 
 
 

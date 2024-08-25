@@ -3,13 +3,14 @@ syntax = "proto3";
 package products;
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
 
 option go_package = "github.com/Sanchir01/protos_files_job/pkg;sandjmav1";
 
 service Product {
-  rpc GetAllProducts (Empty) returns (GetAllProductsResponse) {}
+  rpc GetAllProducts (google.protobuf.Empty) returns (GetAllProductsResponse) {}
 }
-message Empty {}
+
 
 message Products{
   string id = 1;
